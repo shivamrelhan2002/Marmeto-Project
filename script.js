@@ -1,5 +1,3 @@
-// script.js
-
 const productContainer = document.getElementById("product-container");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -14,10 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function showProducts(category) {
-  // Fetch data from the API based on the category
   fetch(
     "https://cdn.shopify.com/s/files/1/0564/3685/0790/files/multiProduct.json"
-  ) // Replace with your actual API endpoint
+  ) 
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -41,18 +38,17 @@ function showProducts(category) {
 }
 
 function renderProducts(products) {
-  // Clear existing products
+
   productContainer.innerHTML = "";
 
-  // Render each product
+
   products.forEach((product) => {
     const card = document.createElement("div");
     card.className = "card";
 
-    // Calculate discount percentage
     const discount = calculateDiscount(product.price, product.compare_at_price);
 
-    // Render product details
+
     card.innerHTML = `
             <div class="badge">${product.badge_text || ""}</div>
             <img src="${product.image}" alt="${product.title}">
@@ -75,5 +71,4 @@ function calculateDiscount(price, compare_at_price) {
   return discount.toFixed(2);
 }
 
-// Initial
 showProducts("Men");
