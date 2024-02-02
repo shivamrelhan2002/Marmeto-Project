@@ -59,15 +59,18 @@ function renderProducts(products) {
             <div class="badge">${product.badge_text || ""}</div>
             <img src="${product.image}" alt="${product.title}">
             <div class="product-details">
-                <h2>${product.title} - ${product.vendor}</h2>
+                <h2>${
+                  product.title
+                }  <span style="font-weight: lighter;"> <li>${
+      product.vendor
+    }</li></span></h2>
                
                 <h3>Rs ${
                   product.price
                 } <span style="text-decoration: line-through;"> Rs ${
       product.compare_at_price
-    }</span></h3>
-               
-                <h4>${discount}% Off</h4>
+    }</span>
+    <span style="color: #fc0808;">${discount}% Off</span></h3>
             </div>
             <button class="button">Add to Cart</button>
         `;
