@@ -9,12 +9,21 @@ document.addEventListener("DOMContentLoaded", function () {
       this.classList.add("active");
     });
   });
+
+  // Set the default tab to "Men" with a black background
+  const defaultTab = document.querySelector(".tab[data-category='Men']");
+  if (defaultTab) {
+    defaultTab.classList.add("active");
+  }
+
+  // Initial
+  showProducts("Men");
 });
 
 function showProducts(category) {
   fetch(
     "https://cdn.shopify.com/s/files/1/0564/3685/0790/files/multiProduct.json"
-  ) 
+  )
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -38,9 +47,7 @@ function showProducts(category) {
 }
 
 function renderProducts(products) {
-
   productContainer.innerHTML = "";
-
 
   products.forEach((product) => {
     const card = document.createElement("div");
@@ -48,15 +55,18 @@ function renderProducts(products) {
 
     const discount = calculateDiscount(product.price, product.compare_at_price);
 
-
     card.innerHTML = `
             <div class="badge">${product.badge_text || ""}</div>
             <img src="${product.image}" alt="${product.title}">
             <div class="product-details">
-                <h2>${product.title}</h2>
-                <p>Brand: ${product.vendor}</p>
-                <h3>Rs ${product.price}</h3>
-                <h5> Rs ${product.compare_at_price}</h5>
+                <h2>${product.title} - ${product.vendor}</h2>
+               
+                <h3>Rs ${
+                  product.price
+                } <span style="text-decoration: line-through;"> Rs ${
+      product.compare_at_price
+    }</span></h3>
+               
                 <h4>${discount}% Off</h4>
             </div>
             <button class="button">Add to Cart</button>
@@ -71,4 +81,5 @@ function calculateDiscount(price, compare_at_price) {
   return discount.toFixed(2);
 }
 
+// Initial
 showProducts("Men");
